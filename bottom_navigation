@@ -1,0 +1,108 @@
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: HomeScreen(),
+    );
+  }
+}
+
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _currentIndex = 0;
+  final PageController _pageController = PageController();
+
+  void _onPageChanged(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
+  void _onItemTapped(int index) {
+    _pageController.jumpToPage(index);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Bottom Navigation with Sliding'),
+      ),
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: _onPageChanged,
+        children: [
+          Center(
+            child: Image.network(
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSN2PJgpjJ1CqEXZFFj5Aer1DnMgLf0VtwQ0g&s',
+              width: 400,
+              height: 400,
+              fit: BoxFit.fill
+              ,
+            ),
+          ),
+          Center(
+            child: Image.network(
+              'https://cdn.pixabay.com/photo/2021/07/02/04/48/search-6380865_1280.png',
+              width: 400,
+              height: 400,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Center(
+            child: Image.network(
+              'https://cdn.pixabay.com/photo/2015/12/16/17/41/bell-1096280_1280.png',
+              width: 400,
+              height: 400,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Center(
+            child: Image.network(
+              'https://c8.alamy.com/comp/2JGB8BN/rohit-sharma-of-india-hits-a-six-6-2JGB8BN.jpg',
+              width: 400,
+              height: 400,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: _onItemTapped,
+        type: BottomNavigationBarType.fixed,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.notifications),
+            label: 'Notifications',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
